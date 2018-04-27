@@ -1,0 +1,109 @@
+//过渡效果
+._slide-left(){
+    @s:0.40s;
+    .slide-left-leave-active {
+        transition: all @s @ExpoEaseInOut;
+    }
+
+    .slide-left-enter-active{
+        transition: all @s @ExpoEaseInOut 0.05s;
+        transform:translate(0%,0);
+        &:extend(.trans-active_mixin);
+    }
+    .slide-left-enter {
+        transform:translate(100%,0);
+    }
+    .slide-left-leave{
+        transform:translate(0%,0);
+    }
+    .slide-left-leave-active{
+        transform:translate(-100%,0);
+        &:extend(.trans-active_mixin);
+    }
+}
+._fade-scale(){
+
+    @s:0.33s;
+    .fade-scale-leave-active {
+        transition: all @s @ExpoEaseInOut;
+    }
+
+    .fade-scale-enter-active{
+        transition: all @s @ExpoEaseInOut;
+    }
+    .fade-scale-enter-active{
+        transform:scale(1);
+    }
+    .fade-scale-enter {
+        opacity: 0;
+        transform:scale(1.2);
+    }
+    .fade-scale-leave{
+        transform:scale(1);
+    }
+    .fade-scale-leave-active{
+        opacity: 0;
+        transform:scale(0.8);
+    }
+}
+._fade-scale-zoom-out(){
+
+    @s:0.5s;
+    .fade-scale-zoom-out-leave-active {
+        transition: all @s @ExpoEaseInOut;
+    }
+
+    .fade-scale-zoom-out-enter-active{
+        transition: all @s @ExpoEaseInOut;
+    }
+    .fade-scale-zoom-out-enter-active{
+        transform:scale(1);
+    }
+    .fade-scale-zoom-out-enter {
+        opacity: 0;
+        transform:scale(0.8);
+    }
+    .fade-scale-zoom-out-leave{
+        transform:scale(1);
+    }
+    .fade-scale-zoom-out-leave-active{
+        opacity: 0;
+        transform:scale(1.2);
+    }
+}
+._slide-down(){
+    @s:0.28s;
+    .slide-down-leave-active,.slide-down-enter-active{
+        &:before,&{
+            transition: transform @s @ExpoEaseInOut;
+        }
+        &:before{
+            //transition-delay: 0.1s;
+            transition-duration: @s*1.8;
+        }
+    }
+
+
+    .slide-down-enter-active{
+
+    }
+    .slide-down-enter {
+        &:before,&{
+            transform:translate(0,100%);
+        }
+    }
+
+    .slide-down-leave-active{
+        &:before,&{
+            transform:translate(0,100%);
+        }
+    }
+    .slide-down-leave{
+
+    }
+}
+
+._slide-left;
+._fade-scale;
+._fade-scale-zoom-out;
+._slide-down;

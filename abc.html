@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<template type="text/html">
+    <f7-page :class="[name]">
+        <f7-navbar sliding class="navbar-black-text">
+            <f7-nav-left>
+                <span v-if="vars.varsionPrefix=='.tr'" class="navbarFont" :class="{small:addr.name.length>6}" @click="routeTo(`/address-picker/4545445/`)">&nbsp;&nbsp;{{addr.name}} <i class="inline icon i-drop-down"></i></span>
+                <span v-if="vars.varsionPrefix=='.zj'" ></span>
+            </f7-nav-left>
+            <f7-nav-center>
+                <search-bar class="list-page-searchbar no-bgcolor no-h-padding" :inNavbar="true" cancel-link="清除" placeholder="搜索" @dosearch="onSearch" ref="searchBar"></search-bar>
+            </f7-nav-center>
+            <f7-nav-right>
+                <f7-link icon="i-iconziti17" open-panel="right"></f7-link>
+            </f7-nav-right>
+        </f7-navbar>
+
+
+        <f7-block>
+            <f7-tabs animated>
+                <!--home-->
+                <f7-tab id="tab1" active>
+
+                    <div class="banner" v-if="bannerImageList.length" :style="{height:recommendList.length?'auto':0}">
+                        <f7-swiper class="swiper-bullet-custom" pagination  :params="{speed:500, slidesPerView: 1, spaceBetween: 15, autoplay:3000, autoplayDisableOnInteraction:false}">
+                            <f7-swiper-slide v-for="ban in bannerImageList">
+                                <img :src="vars.oss_url_base + ban.pictureUrl" alt="">
+                            </f7-swiper-slide>
+                        </f7-swiper>
+                    </div>
+
+                    <div class="icon-grid" :style="{opacity:recommendList.length?1:0}">
+                        <a href="#" v-for="ml in markList" @click="labelClick($event,ml)">
+                            <span class="iconCont"><img :src="vars.oss_url_base + ml.url" alt=""></span>
+                            <b>{{ml.name}}</b>
+                        </a>
+                    </div>
+
+
+                    <div v-if="recommendList&&!recommendList.length">努力加载中...</div>
+                    <div v-if="!recommendList" style="margin-top: 30px;">
+                        <div class="blank-placeholder no-mt">
+                            <i class="icon i-zhaobudao"></i>
+                            <div class="label">暂无数据</div>
+                        </div>
+                    </div>
+
+                    <div class="hot-item" v-for="rec in recommendList" v-if="rec">
+                        <h3 class="item-title ">
+                            <span><i class="icon" :class="[rec.icon]" :style="{color:rec.iColor}"></i>{{rec.name}}</span>
+                            <a @click="routeTo(`/list-page/${rec.mark}/`)">更多 &gt;</a>
+                        </h3>
+                        <div class="item-grid">
+                            <a class="item" v-for="it in rec.list" @click="routeTo(`/${rec.router}/${it.id}/${rec.mark}/`)">
+                                <span class="thumb"><img :src="vars.oss_url_base + it.cover"></span>
+                                <h4 class="title">{{it.name}}</h4>
+                                <span class="add-info-row"  v-if="rec.mark!=='HUODONG'">
+                                    <span>人均 <b class="red big">￥{{_get(it,"startPrice",1)}}</b></span>
+                                    <span class="right">{{_get(it,"commentNum",0)}}条评论</span>
+                                </span>
+                                <span class="add-info-row shortcut-class" v-if="rec.mark=='HUODONG'">
+                                    <span class="right">时间: <b class="red">{{_get(it,"startTime")|formatDate('YY/M/D')}}-{{_get(it,"endTime")|formatDate('YY/M/D')}}</b></span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </f7-tab>
+                <f7-tab id="tab2">资讯内容</f7-tab>
+                <f7-tab id="tab3">游记内容</f7-tab>
+                <f7-tab id="tab4" class="full-width">
+                    <div style="display: block" class="my-page">
+                        <f7-list contacts>
+                            <f7-list-group>
+                                <f7-link href="/personal-information/" class="item-content item-img">
+                                    <div class="item-media">
+                                        <!--<img class="tuxiang-img" :src="vars.oss_url_base + _get(account,'headImg')">-->
+                                        <img class="tuxiang-img" :src="vars.null_img" v-if="!account.headImg">
+                                        <img class="tuxiang-img" :src="vars.oss_url_base + _get(account,'headImg')" v-if="account.headImg">
+
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title-row">
+                                            <div class="item-title">{{ _get(account,'name')}}</div>
+                                            <div class="item-title font-size">签名：{{_get(account,'sign')}}</div>
+                                        </div>
+                                    </div>
+                                </f7-link>
+                            </f7-list-group>
+                        </f7-list>
+
+                        <f7-list media-list>
+                            <f7-list-item>
+                                <h3>
+                                    <f7-link icon="icon i-qiandao" @click="routeTo(`/my-qiandao/${_get(account,'id')}/`)">
+                                        签到
+                                        <i class="icon i-lp_speaker right">
+                                        </i>
+                                    </f7-link>
+                                </h3>
+                            </f7-list-item>
+                            <f7-list-item>
+                                <h3>
+                                    <f7-link icon="icon ifont i-iconfontshoucang1" @click="routeTo(`/my-shoucang/${_get(account,'id')}/`)">
+                                        收藏
+                                        <i class="icon i-lp_speaker ifont right">
+                                        </i>
+                                    </f7-link>
+                                </h3>
+                            </f7-list-item>
+                        </f7-list>
+
+                        <f7-list media-list>
+                            <f7-list-item>
+                                <h3>
+                                    <f7-link icon="icon i-21" @click="routeTo(`/my-dingdan/${_get(account,'id')}/`)">
+                                        订单
+                                        <i class="icon i-lp_speaker right">
+                                        </i>
+                                    </f7-link>
+                                </h3>
+                            </f7-list-item>
+                            <f7-list-item >
+                                <h3>
+                                    <f7-link icon="icon i-qiabao" @click="routeTo(`/my-kabao/${_get(account,'id')}/`)">
+                                        卡包
+                                        <i class="icon i-lp_speaker ifont right">
+                                        </i>
+                                    </f7-link>
+                                </h3>
+                            </f7-list-item>
+                            <f7-list-item>
+                                <h3>
+                                    <f7-link icon="icon i-qiaquan" @click="routeTo(`/my-jifen/${_get(account,'id')}/`)">
+                                        积分
+                                        <i class="icon i-lp_speaker ifont right">
+                                        </i>
+                                    </f7-link>
+                                </h3>
+                            </f7-list-item>
+                        </f7-list>
+                        <f7-list media-list>
+                            <f7-list-item>
+                                <h3>
+                                    <f7-link icon="icon i-tupian" @click="routeTo(`/my-tuku/${_get(account,'id')}/`)" >
+                                        图片
+                                        <i class="icon i-lp_speaker right">
+                                        </i>
+                                    </f7-link>
+                                </h3>
+                            </f7-list-item>
+                            <f7-list-item class="you-ji">
+                                <h3 >
+                                    <f7-link icon="icon i-youji1" @click="routeTo(`/my-youji/${_get(account,'id')}/`)" >
+                                        奇遇
+                                        <i class="icon i-lp_speaker right">
+                                        </i>
+                                    </f7-link>
+                                </h3>
+                            </f7-list-item>
+                            <f7-list-item>
+                                <h3>
+                                    <f7-link icon="icon i-pinglun" @click="routeTo(`/my-pinglun/${_get(account,'id')}/`)">
+                                        评论
+                                        <i class="icon i-lp_speaker right">
+                                        </i>
+                                    </f7-link>
+                                </h3>
+                            </f7-list-item>
+                            <f7-list-item>
+                                <h3>
+                                    <f7-link icon="icon i-icon02" href="/my-shezhi/">
+                                        设置
+                                        <!-- <i class="icon ifont i-lp_speaker right">
+                                         </i>-->
+                                        <i class="icon i-lp_speaker right"></i>
+                                    </f7-link>
+                                </h3>
+                            </f7-list-item>
+                        </f7-list>
+                    </div>
+                </f7-tab>
+            </f7-tabs>
+        </f7-block>
+
+        <f7-toolbar bottom labels tabbar :key="'home'" ref="botToolBar">
+            <f7-link icon="i-shouye"            text="首页" tab-link="#tab1"          active></f7-link>
+            <f7-link icon="i-qiyu"              text="奇遇" tab-link="#tab2"          @click.stop.prevent="routeTo(`/list-page/QIYU/`)"></f7-link>
+            <f7-link icon="i-zixun"             text="资讯" tab-link="#tab3"          @click.stop.prevent="routeTo(`/list-page/ZIXUN/`)"></f7-link>
+            <f7-link icon="i-wode1"             text="我的" tab-link="#tab4"          @click.stop.prevent="tabToPersion"></f7-link>
+        </f7-toolbar>
+
+    </f7-page>
+</template>
+</body>
+</html>

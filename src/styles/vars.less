@@ -1,0 +1,128 @@
+//页边距
+@page-edge:15px;
+
+@ios-status-bar-height:20px;
+
+//顶部工具条高度
+@top-bar-height:44px;
+
+@cl-green-other:#42B975;
+@cl-green:#1C9E3A;
+@cl-red:#FB3B46;
+@cl-orange:#FA952B;
+@cl-black:@cl_flat_black;
+
+@main-color:@cl-green;
+@main_color_light:#22D73C;
+
+@light-shaow:@cl_flat_light 1px 1px 0px;
+@dark-shaow: @cl_flat_black 1px 1px 0px;
+@up-shaow: fade(@cl_flat_black,20) 0px -5px 5px;
+
+
+@amap_icon_size_default:36px;
+
+
+@toolbarBg : #f7f7f8;
+
+
+@cl_flat_green:#01BF9D;
+@cl_flat_green1:#01A187;
+
+@cl_flat_greenn:#1FCF6D;
+@cl_flat_greenn1:#1BAE5D;
+
+@cl_flat_blue:#5BABE6;
+@cl_flat_blue1:#217FBC;
+
+//字体图标背景蓝色
+@cl_flat_blue2:#26b0f8;
+
+
+
+@cl_flat_purple:#9C56B9;
+@cl_flat_purple1:#913EB0;
+
+@cl_flat_black:#334960;
+@cl_flat_black1:#2D3D54;
+
+@cl_flat_yellow:#F3C500;
+@cl_flat_yellow1:#F59C00;
+
+//图片背景
+@cl_flat_yellow2:#ffa62e;
+
+@cl_flat_orange:#E87E04;
+@cl_flat_orange1:#D65400;
+
+@cl_flat_red:#EA4B35;
+@cl_flat_red1:#C43926;
+
+@cl_flat_pink:#ff00ff;
+
+@cl_flat_light:#ECF0F1;
+@cl_flat_light1:#BEC3C7;
+
+@cl_flat_gray:#95A5A5;
+@cl_flat_gray1:#7E8C8D;
+
+//分割线
+@cl_flat_gray2:#dadada;
+//文字背景灰色
+@cl_flat_gray3:#f9f9f9;
+@cl_flat_gray4:#ccc;
+
+@cl_bd_light:#e5e5e5;
+@cl_bd_light-2:darken(@cl_bd_light,20%);
+@cl_gray_font:#666;
+
+
+//请看景点产品详情页，顶部图片的高度
+@page-top-baner-height:220px;
+
+
+//关于页面的一些设置
+.pageSettingFixedBg(){
+    background-attachment: scroll;
+    background-size: 100% @page-top-baner-height;
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+
+    position: relative;
+    >.banner{
+        @gg:35px;
+        top: @gg;
+        position: absolute;
+        width: 100%;
+        box-sizing: border-box;
+        height: @page-top-baner-height - @gg;
+
+        .phone-link-cont{
+            text-align: right;
+            margin-bottom: 2rem;
+            >a{
+                ._size_lh(3em);
+                display: inline-block;
+                background-color: rgba(51, 73, 96, 0.79);
+                border-radius: 50%;
+                color: #ffffff;
+                text-align: center;
+            }
+        }
+
+
+        .title-1{
+            margin: 0;
+            margin-top: @page-edge;
+            color: #ffffff;
+            text-shadow: @dark-shaow;
+            font-weight: 300;
+        }
+    }
+    >.body{
+        background-color: #ffffff;
+        margin: 0;
+
+        margin-top:@page-top-baner-height - @top-bar-height;
+    }
+}

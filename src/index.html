@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+    <!--增加cordvoajs-->
+    <script>
+        function addScript(url){
+            document.write("<script src='" + url + "'><\/script>")
+        }
+        !function(){
+            var url = "cordova.js"
+            if(/cordovaJsUrl=([^=&\?]+)/.test(location.href)) {
+                url = decodeURIComponent(RegExp["$1"]).split("#")[0];
+            }
+            console.log(url);
+            addScript(url);
+        }()
+    </script>
+
+    <!--标识deviceready是否已触发-->
+    <script> document.addEventListener("deviceready", function(){ window["DEVICE_READYED"]=1; }, false); </script>
+</head>
+<body>
+<div id="startup"></div>
+<div id="app">
+    <app ref="app"/>
+</div>
+
+<div id="root">
+    <broswer ref="mainBroswer"></broswer>
+</div>
+
+<!--<script src="http://192.1.1.10:8080/target/target-script-min.js#anonymous"></script>-->
+<!-- built files will be auto injected -->
+</body>
+</html>

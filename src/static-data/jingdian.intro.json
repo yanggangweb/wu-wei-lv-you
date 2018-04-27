@@ -1,0 +1,34 @@
+{
+    "success":"success",
+    "comment":"景区小景点列表",
+    "result":[
+        {
+            "name":"步行街1",
+            "latitude":34.25364610560069,
+            "longitude":108.9629652235243,
+            "introduction":"介绍",
+            "id":"111"
+        },
+        {
+            "name":"步行街2",
+            "latitude":34.26464610660069,
+            "longitude":108.9629652235343,
+            "introduction":"介绍",
+            "id":112
+        },
+        {
+            "name":"步行街3",
+            "latitude":34.27564610760069,
+            "longitude":108.9629652235443,
+            "introduction":"介绍",
+            "id":113
+        },
+        {
+            "name":"步行街4",
+            "latitude":34.28664610860069,
+            "longitude":108.9629652235543,
+            "introduction":"介绍",
+            "id":114
+        }
+    ]
+}
